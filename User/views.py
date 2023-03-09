@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from .models import *
 
 
+
 class Loginview(View):
     def get(self,request):
         return render(request,'page-user-login.html')
@@ -21,6 +22,13 @@ class Loginview(View):
 class Registerview(View):
     def get(self,request):
         return render(request,'page-user-register.html')
+    def post(self,request):
+        User.objects.create_user(
+            username = request.POST.get('e'),
+            password = request.POST.get('c_p')
+        )
+        return redirect('/User/login/')
+
 
 
 class LogoutView(View):
